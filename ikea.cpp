@@ -129,25 +129,25 @@ void ikea::inputMovieOrBook(std::ifstream& inFile)
 {
     string line;
     string inputString;
-    for (int i = 5; i < 7; i++)
+    unsigned long delimiter;
+    for (int i = 0; i < 2; i++)
     {
+        //todo out of range exception
         std::getline(inFile, line);
-        std::istringstream iss(line);
-        iss >> inputString;
+        delimiter = line.find(": ");
+        inputString = line.substr(0, delimiter);
         switch (i)
         {
-            case 5:
-                if (!checkFormat(inputString, "Year of publication:"))
+            case 0:
+                if (!checkFormat(inputString, "Year of publication"))
                 {
-                    iss >> inputString;
-                    input.push_back(inputString);
+                    input.push_back(line.substr(delimiter+2, line.length()));
                 }
                 break;
-            case 6:
-                if (!checkFormat(inputString, "Length:"))
+            case 1:
+                if (!checkFormat(inputString, "Length"))
                 {
-                    iss >> inputString;
-                    input.push_back(inputString);
+                    input.push_back(line.substr(delimiter+2, line.length()));
                 }
                 break;
             default:
@@ -163,26 +163,23 @@ void ikea::inputFurniture(std::ifstream& inFile)
     string line;
     string inputString;
     std::getline(inFile, line);
-    std::istringstream iss(line);
-    iss >> inputString;
+    unsigned long delimiter = line.find(": ");
+    inputString = line.substr(0, delimiter);
 
-    if (inputString == "Capacity:")
+    if (inputString == "Capacity")
     {
-        iss >> inputString;
-        input.push_back(inputString);
+        input.push_back(line.substr(delimiter+2, line.length()));
         type = kitchen;
     }
-    else if (inputString == "Material:")
+    else if (inputString == "Material")
     {
-        iss >> inputString;
-        input.push_back(inputString);
+        input.push_back(line.substr(delimiter+2, line.length()));
         std::getline(inFile, line);
-        std::istringstream iss(line);
-        iss >> inputString;
-        if (inputString == "Color:")
+        delimiter = line.find(": ");
+        inputString = line.substr(0, delimiter);
+        if (inputString == "Color")
         {
-            iss >> inputString;
-            input.push_back(inputString);
+            input.push_back(line.substr(delimiter+2, line.length()));
         }
         type = tableAndChair;
     }
@@ -214,39 +211,40 @@ int ikea::inputStock()
         {
             break;
         }
-        std::istringstream iss(line);
-        iss >> inputString;
-        if (inputString == "Weight:")
+        unsigned long delimiter = line.find(": ");
+        inputString = line.substr(0, delimiter);
+        if (inputString == "Weight")
         {
-            iss >> inputString;
-            input.push_back(inputString);
+            input.push_back(line.substr(delimiter+2, line.length()));
             type = fabric;
             checkSeparator(inFile);
             addItem(false);
         }
-        else if (inputString == "Calories:")
+        else if (inputString == "Calories")
         {
-            iss >> inputString;
-            input.push_back(inputString);
+            input.push_back(line.substr(delimiter+2, line.length()));
             type = candy;
             checkSeparator(inFile);
             addItem(false);
         }
-        else if (inputString == "Author:")
+        else if (inputString == "Author")
         {
-            iss >> inputString;
-            input.push_back(inputString);
+            input.push_back(line.substr(delimiter+2, line.length()));
             inputMovieOrBook(inFile);
             checkSeparator(inFile);
             addItem(true);
         }
-        else if (inputString == "Dimensions:")
+        else if (inputString == "Dimensions")
         {
-            string temp1, temp2;
-            iss >> inputString >> temp1 >> temp2;
-            input.push_back(inputString);
-            input.push_back(temp1);
-            input.push_back(temp2);
+            string cutLine;
+            cutLine = line.substr(delimiter+2,line.length());
+            for(int i=0;i<3;i++)
+            {
+                delimiter = cutLine.find(' ');
+                inputString = cutLine.substr(0,delimiter);
+                input.push_back(inputString);
+                cutLine = cutLine.substr(delimiter+1,line.length());
+            }
             inputFurniture(inFile);
             checkSeparator(inFile);
             addItem(true);
@@ -275,37 +273,36 @@ int ikea::getFirstLines(std::ifstream &inFile)
     string inputString;
     for (int i = 0; i < 4; i++)
     {
-        std::getline(inFile, line);
-        std::istringstream iss(line);
-        iss >> inputString;
+        if(!std::getline(inFile, line) && i==0)
+        {
+            return 0;
+        }
+        unsigned long delimiter = line.find(": ");
+        inputString = line.substr(0, delimiter);
         switch (i)
         {
             case 0:
-                if (!checkFormat(inputString, "Item:"))
+                if (!checkFormat(inputString, "Item"))
                 {
-                    iss >> inputString;
-                    input.push_back(inputString);
+                    input.push_back(line.substr(delimiter+2, line.length()));
                 }
                 break;
             case 1:
-                if (!checkFormat(inputString, "Name:"))
+                if (!checkFormat(inputString, "Name"))
                 {
-                    iss >> inputString;
-                    input.push_back(inputString);
+                    input.push_back(line.substr(delimiter+2, line.length()));
                 }
                 break;
             case 2:
-                if (!checkFormat(inputString, "Quantity:"))
+                if (!checkFormat(inputString, "Quantity"))
                 {
-                    iss >> inputString;
-                    input.push_back(inputString);
+                    input.push_back(line.substr(delimiter+2, line.length()));
                 }
                 break;
             case 3:
-                if (!checkFormat(inputString, "Price:"))
+                if (!checkFormat(inputString, "Price"))
                 {
-                    iss >> inputString;
-                    input.push_back(inputString);
+                    input.push_back(line.substr(delimiter+2, line.length()));
                 }
                 break;
             default:
