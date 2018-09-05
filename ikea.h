@@ -7,18 +7,20 @@
 
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <algorithm>
 #include "Item.h"
-
-//todo magic number format?
-const std::string menu = "1. Input stock from file\n2. Find item by catalog number\n3. Find item by name\n 4. Print stock by catalog number\n5. Print stock by name\n6. Sell item\n7. Exit\n";
-
 
 class ikea
 {
 private:
+    const std::string NOTFOUND = "Item not found";
+    const std::string ITEMSINPUT = "Please enter number of items:";
+    const std::string QUANTITYINPUT = "Please enter desired quantity:";
     std::vector<Item *> items;
-    template <typename T>
-    T& get_input();
+
+    template<typename T>
+    T &getInput();
 
 public:
     /**
@@ -29,20 +31,21 @@ public:
     /**
      * destructor
      */
-    ~ikea() {delete[] items; };
+    ~ikea()
+    { delete[] items; };
 
     /**
      * inputs items to stock from file
      * @param path
      * @return
      */
-    int input_stock();
+    int inputStock();
 
     /**
      * finds item by id
      * @return
      */
-    void find_by_id();
+    void findById();
 
     /**
      * find item by name
@@ -55,13 +58,13 @@ public:
      * prints items by id
      * @param id
      */
-    void print_by_id();
+    void printById();
 
     /**
      * prints items by name
      * @param name
      */
-    void print_by_name();
+    void printByName();
 
     /**
      * sells a item
@@ -69,6 +72,7 @@ public:
      */
     int sell();
 
+    void printMenu();
 
 };
 

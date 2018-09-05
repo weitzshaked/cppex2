@@ -4,15 +4,6 @@
 
 #include "Item.h"
 
-std::ostream &operator<<(std::ostream &os, const Item &other)
-{
-    os << "Item: " << other._id << std::endl;
-    os << "Name: " << other._name << std::endl;
-    os << "Quantity: " << other._quantity << std::endl;
-    os << "Price: " << other._price << std::endl;
-    return os;
-}
-
 int Item::get_id() const
 {
     return _id;
@@ -23,7 +14,7 @@ const std::string &Item::get_name() const
     return _name;
 }
 
-int Item::get_quantity() const
+double Item::get_quantity() const
 {
     return _quantity;
 }
@@ -31,4 +22,14 @@ int Item::get_quantity() const
 void Item::set_quantity(int _quantity)
 {
     Item::_quantity = _quantity;
+}
+
+void Item::printItem()
+{
+    std::cout << "Item: " << _id << std::endl;
+    std::cout << "Name: " << _name << std::endl;
+    std::cout << "Quantity: ";
+    std::cout << _quantityIsInt? (int)_quantity: _quantity;
+    std::cout << std::endl;
+    std::cout << "Price: " << _price << std::endl;
 }

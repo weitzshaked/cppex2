@@ -9,7 +9,25 @@
 
 class MoviesAndBooks : Item
 {
+public:
+    MoviesAndBooks(int id, string &name, double price, int quantity, string author, string year,
+                   string length) :
+            Item(id, name, price), _quantity(quantity), _author(author), _yearOfPublish(year),
+            _length(length)
+    {};
 
+    virtual void printItem()
+    {
+        Item::printItem();
+        std::cout << "Author: " << _author << std::endl;
+        std::cout << "Year of publication: " << _yearOfPublish << std::endl;
+        std::cout << "Length: " << _author << std::endl;
+    }
+
+protected:
+    string _author;
+    string _yearOfPublish;
+    string _length;
 };
 
 

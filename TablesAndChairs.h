@@ -10,7 +10,21 @@
 
 class TablesAndChairs : Furniture
 {
-
+public:
+    TablesAndChairs(int id, string &name, double price, double quantity, double x, double y,
+                    double z,
+                    string material, string color) : Furniture(id, name, price, quantity, x, y, x),
+                                                     _material(material), _color(color)
+    {};
+    virtual void printItem()
+    {
+        Furniture::printItem();
+        std::cout << "Material: " << _material << std::endl;
+        std::cout << "Color: " << _color << std::endl;
+    }
+protected:
+    string _material;
+    string _color;
 };
 
 

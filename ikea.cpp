@@ -1,32 +1,30 @@
-
-
-#include <algorithm>
 #include "ikea.h"
+
 
 int main()
 {
     auto *catalog = new ikea();
-    int choice;
-    std::cout << menu << std::endl;
-    std::cin >> choice;
+    int choice = 0;
     while (choice != 7)
     {
+        catalog->printMenu();
+        std::cin >> choice;
         switch (choice)
         {
             case 1:
-                catalog->input_stock();
+                catalog->inputStock();
                 break;
             case 2:
-                catalog->find_by_id();
+                catalog->findById();
                 break;
             case 3:
                 catalog->find_by_name();
                 break;
             case 4:
-                catalog->print_by_id();
+                catalog->printById();
                 break;
             case 5:
-                catalog->print_by_name();
+                catalog->printByName();
                 break;
             case 6:
                 catalog->sell();
@@ -39,10 +37,30 @@ int main()
     return 0;
 }
 
-int ikea::input_stock()
+void ikea::printMenu()
+{
+    std::cout << "1. Input stock from file" << std::endl;
+    std::cout << "2. Find item by catalog number" << std::endl;
+    std::cout << "3. Find item by name" << std::endl;
+    std::cout << "4. Print stock by catalog number" << std::endl;
+    std::cout << "5. Print stock by name" << std::endl;
+    std::cout<<"6. Sell item" << std::endl;
+    std::cout << "7. Exit" << std::endl;
+}
+
+
+int ikea::inputStock()
 {
     std::string path;
     std::cin >> path;
+
+    std::ifstream inFile(path.c_str());
+
+    if(!inFile)
+    {
+        std::cerr << "" << std::endl;
+        return -1;
+    }
 
     return 0;
 }
@@ -51,37 +69,36 @@ int ikea::input_stock()
  * find a item by it's id
  * @return
  */
-void ikea::find_by_id()
+void ikea::findById()
 {
     try
     {
-        std::cout << items.at(get_input<unsigned int>());
+        std::cout << items.at(getInput<unsigned int>());
     }
     catch (const std::out_of_range &e)
     {
-        std::cout << "Item not found" << std::endl;
+        std::cout << NOTFOUND << std::endl;
     }
 }
 
-bool comp_by_id(const Item& first, const Item& second) const
+bool compById(const Item &first, const Item &second) const
 {
     return first.get_id() > second.get_id();
 }
 
-
-void ikea::print_by_id()
+void ikea::printById()
 {
-    if(items.size() != 0)
+    if(!items.empty())
     {
-        std::sort(items.begin(), items.end(), comp_by_id);
+        std::sort(items.begin(), items.end(), compById);
         for (auto &item: items)
         {
-            std::cout << item;
+            item->printItem();
         }
     }
 }
 
-bool comp_by_name(const Item& first, const Item& second) const
+bool compByName(const Item &first, const Item &second) const
 {
     return first.get_name() > second.get_name();
 }
@@ -90,42 +107,42 @@ bool comp_by_name(const Item& first, const Item& second) const
 /**
  * prints items by name
  */
-void ikea::print_by_name()
+void ikea::printByName()
 {
-    if(items.size() != 0)
+    if(!items.empty())
     {
-        std::sort(items.begin(), items.end(), comp_by_name);
+        std::sort(items.begin(), items.end(), compByName);
         for (auto &item: items)
         {
-            std::cout << item;
+            item->printItem();
         }
     }
 }
 
 int ikea::sell()
 {
-    Item to_sell;
+    Item *to_sell;
     double quantity;
     try
     {
-        to_sell = *items.at(get_input<unsigned int>());
+        to_sell = *items.at(getInput<unsigned int>());
     }
     catch (const std::out_of_range &e)
     {
-        std::cout << "Item not found" << std::endl;
+        std::cout << NOTFOUND << std::endl;
     }
-    if (to_sell.)
+    if (to_sell->)
     {
-        std::cout << "Please enter number of items:" << std::endl;
+        std::cout << ITEMSINPUT << std::endl;
     }
     else
     {
-        std::cout << "Please enter desired quantity:" << std::endl;
+        std::cout << QUANTITYINPUT << std::endl;
     }
     std::cin >> quantity;
-    if (to_sell.get_quantity() >= quantity)
+    if (to_sell->get_quantity() >= quantity)
     {
-        to_sell.set_quantity(to_sell.get_quantity() - quantity);
+        to_sell->set_quantity(to_sell->get_quantity() - quantity);
     }
     else
     {
@@ -140,7 +157,7 @@ int ikea::sell()
  * @return
  */
 template <typename T>
-T& ikea::get_input()
+T& ikea::getInput()
 {
     T input;
     std::cin >> input;
