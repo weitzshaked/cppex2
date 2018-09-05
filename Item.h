@@ -28,15 +28,17 @@ public:
     /**
      * @return quantity of item
      */
-    double get_quantity() const;
+    double getQuantity() const;
 
-    bool is_quantityIsInt() const;
+    bool quantityIsInt() const;
 
-    void set_quantity(double _quantity);
+    void setQuantity(double _quantity);
 
-    int get_id() const;
+    int getId() const;
 
     const string &get_name() const;
+
+    Item() = default;
 
     /**
      * constructor

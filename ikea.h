@@ -31,6 +31,7 @@ private:
     void inputFurniture(std::ifstream& inFile);
     int getInt();
     string getString();
+    void checkSeparator(std::ifstream& inFile);
 
 public:
     /**
@@ -55,7 +56,7 @@ public:
      * finds item by id
      * @return
      */
-    void findById();
+    Item & findById();
 
     /**
      * find item by name

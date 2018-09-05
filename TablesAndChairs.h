@@ -21,6 +21,7 @@ public:
         Furniture::printItem();
         std::cout << "Material: " << _material << std::endl;
         std::cout << "Color: " << _color << std::endl;
+        std::cout << "-----" << std::endl;
     }
 protected:
     string _material;

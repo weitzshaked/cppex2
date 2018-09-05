@@ -16,6 +16,7 @@ public:
     {
         Item::printItem();
         std::cout << "Calories: " << _calories << std::endl;
+        std::cout << "-----" << std::endl;
     }
 protected:
     double _calories;

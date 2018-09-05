@@ -4,7 +4,7 @@
 
 #include "Item.h"
 
-int Item::get_id() const
+int Item::getId() const
 {
     return _id;
 }
@@ -14,7 +14,7 @@ const std::string &Item::get_name() const
     return _name;
 }
 
-void Item::set_quantity(double _quantity)
+void Item::setQuantity(double _quantity)
 {
     Item::_quantity = _quantity;
 }
@@ -29,12 +29,12 @@ void Item::printItem()
     std::cout << "Price: " << _price << std::endl;
 }
 
-bool Item::is_quantityIsInt() const
+bool Item::quantityIsInt() const
 {
     return _quantityIsInt;
 }
 
-double Item::get_quantity() const
+double Item::getQuantity() const
 {
     return _quantity;
 }

@@ -22,6 +22,7 @@ public:
         std::cout << "Author: " << _author << std::endl;
         std::cout << "Year of publication: " << _yearOfPublish << std::endl;
         std::cout << "Length: " << _author << std::endl;
+        std::cout << "-----" << std::endl;
     }
 
 protected:

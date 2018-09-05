@@ -21,6 +21,7 @@ public:
     {
         Furniture::printItem();
         std::cout << "Capacity: " << _capacity << std::endl;
+        std::cout << "-----" << std::endl;
     }
 
 protected:

@@ -1,0 +1,35 @@
+Item: 701
+Name: Pajama cloth 
+Quantity: 50.50
+Price: 4.30
+Weight: 5.00
+-----
+Item: 902
+Name: Square candy 
+Quantity:3.20
+Price: 1.50
+Calories: 500.00
+-----
+Item: 126
+Name: Wooden chair 
+Quantity:500
+Price:25.00
+Dimensions: 1.50 0.80 0.80
+Material: wood
+Color: Salmon
+-----
+Item: 205
+Name: Ceramic knife
+Quantity: 100
+Price: 5.00
+Dimensions: 0.30 0.05 0.020
+Capacity: 0.00
+-----
+Item: 007
+Name: James Bond
+Quantity: 1
+Price: 9999.00
+Author: Ian Fleming 
+Year of publication: 1962
+Length: 6540
+-----

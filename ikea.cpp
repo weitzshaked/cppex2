@@ -52,14 +52,15 @@ int main()
     return 0;
 }
 
-//void checkSeparator()
-//{
-//    getline(inFile, line);
-//    if(line != "-----")
-//    {
-//        std::cerr << "Separator Missing" << std::endl;
-//    }
-//}
+void ikea::checkSeparator(std::ifstream& inFile)
+{
+    string line;
+    getline(inFile, line);
+    if(line != "-----")
+    {
+        std::cerr << "Separator Missing" << std::endl;
+    }
+}
 
 void ikea::printMenu()
 {
@@ -127,24 +128,26 @@ int ikea::addItem(bool isInt)
 void ikea::inputMovieOrBook(std::ifstream& inFile)
 {
     string line;
-    string desc;
+    string inputString;
     for (int i = 5; i < 7; i++)
     {
         std::getline(inFile, line);
         std::istringstream iss(line);
-        iss >> desc;
+        iss >> inputString;
         switch (i)
         {
             case 5:
-                if (!checkFormat(desc, "Year of publication:"))
+                if (!checkFormat(inputString, "Year of publication:"))
                 {
-                    iss >> input[i];
+                    iss >> inputString;
+                    input.push_back(inputString);
                 }
                 break;
             case 6:
-                if (!checkFormat(desc, "Length:"))
+                if (!checkFormat(inputString, "Length:"))
                 {
-                    iss >> input[i];
+                    iss >> inputString;
+                    input.push_back(inputString);
                 }
                 break;
             default:
@@ -158,25 +161,28 @@ void ikea::inputMovieOrBook(std::ifstream& inFile)
 void ikea::inputFurniture(std::ifstream& inFile)
 {
     string line;
-    string desc;
+    string inputString;
     std::getline(inFile, line);
     std::istringstream iss(line);
-    iss >> desc;
+    iss >> inputString;
 
-    if (!checkFormat(desc, "Capacity:"))
+    if (!checkFormat(inputString, "Capacity:"))
     {
-        iss >> input[7];
+        iss >> inputString;
+        input.push_back(inputString);
         type = kitchen;
     }
-    else if (checkFormat(desc, "Material:"))
+    else if (checkFormat(inputString, "Material:"))
     {
-        iss >> input[7];
+        iss >> inputString;
+        input.push_back(inputString);
         std::getline(inFile, line);
         std::istringstream iss(line);
-        iss >> desc;
-        if (checkFormat(desc, "Color:"))
+        iss >> inputString;
+        if (checkFormat(inputString, "Color:"))
         {
-            iss >> input[8];
+            iss >> inputString;
+            input.push_back(inputString);
         }
         type = tableAndChair;
     }
@@ -198,32 +204,43 @@ int ikea::inputStock()
     getFirstLines(inFile);
 
     string line;
-    string desc;
+    string inputString;
     std::getline(inFile, line);
     std::istringstream iss(line);
-    iss >> desc;
-    if (desc == "Weight:")
+    iss >> inputString;
+    if (inputString == "Weight:")
     {
-        iss >> input[5];
+        iss >> inputString;
+        input.push_back(inputString);
         type = fabric;
+        checkSeparator(inFile);
         addItem(false);
     }
-    else if (desc == "Calories:")
+    else if (inputString == "Calories:")
     {
-        iss >> input[5];
+        iss >> inputString;
+        input.push_back(inputString);
         type = candy;
+        checkSeparator(inFile);
         addItem(false);
     }
-    else if (desc == "Author:")
+    else if (inputString == "Author:")
     {
-        iss >> input[5];
+        iss >> inputString;
+        input.push_back(inputString);
         inputMovieOrBook(inFile);
+        checkSeparator(inFile);
         addItem(true);
     }
-    else if (desc == "Dimensions:")
+    else if (inputString == "Dimensions:")
     {
-        iss >> input[5] >> input[6] >> input[7];
+        string temp1, temp2;
+        iss >> inputString >> temp1 >> temp2;
+        input.push_back(inputString);
+        input.push_back(temp1);
+        input.push_back(temp2);
         inputFurniture(inFile);
+        checkSeparator(inFile);
         addItem(true);
     }
     inFile.close();
@@ -245,36 +262,40 @@ int ikea::checkFormat(string desc, string format)
 int ikea::getFirstLines(std::ifstream &inFile)
 {
     string line;
-    string desc;
+    string inputString;
     for (int i = 0; i < 4; i++)
     {
         std::getline(inFile, line);
         std::istringstream iss(line);
-        iss >> desc;
+        iss >> inputString;
         switch (i)
         {
             case 0:
-                if (!checkFormat(desc, "Item:"))
+                if (!checkFormat(inputString, "Item:"))
                 {
-                    iss >> input[i];
+                    iss >> inputString;
+                    input.push_back(inputString);
                 }
                 break;
             case 1:
-                if (!checkFormat(desc, "Name:"))
+                if (!checkFormat(inputString, "Name:"))
                 {
-                    iss >> input[i];
+                    iss >> inputString;
+                    input.push_back(inputString);
                 }
                 break;
             case 2:
-                if (!checkFormat(desc, "Quantity:"))
+                if (!checkFormat(inputString, "Quantity:"))
                 {
-                    iss >> input[i];
+                    iss >> inputString;
+                    input.push_back(inputString);
                 }
                 break;
             case 3:
-                if (!checkFormat(desc, "Price:"))
+                if (!checkFormat(inputString, "Price:"))
                 {
-                    iss >> input[i];
+                    iss >> inputString;
+                    input.push_back(inputString);
                 }
                 break;
             default:
@@ -287,36 +308,39 @@ int ikea::getFirstLines(std::ifstream &inFile)
  * find a item by it's id
  * @return
  */
-void ikea::findById()
+Item & ikea::findById()
 {
-    try
+    int id = getInt();
+    for(auto &item: items)
     {
-//        getInt();
+        if(item->getId() == id)
+        {
+            item->printItem();
+            return *item;
+        }
     }
-    catch (const std::out_of_range &e)
-    {
-        std::cout << NOTFOUND << std::endl;
-    }
+    std::cout << NOTFOUND << std::endl;
 }
 
 
-//todo find by name lambda?
 void ikea::find_by_name()
 {
-    try
+    string name = getString();
+    for(auto &item: items)
     {
-
+        if(item->get_name() == name)
+        {
+            item->printItem();
+            return;
+        }
     }
-    catch (const std::out_of_range &e)
-    {
-        std::cout << NOTFOUND << std::endl;
-    }
+    std::cout << NOTFOUND << std::endl;
 }
 
 
 bool compById(const Item *first, const Item *second)
 {
-    return first->get_id() > second->get_id();
+    return first->getId() > second->getId();
 }
 
 void ikea::printById()
@@ -354,12 +378,12 @@ void ikea::printByName()
 
 int ikea::sell()
 {
-    Item *to_sell;
+    Item to_sell;
+    to_sell = findById();
     double quantity;
     try
     {
-        to_sell =
-        if (to_sell->is_quantityIsInt())
+        if (to_sell.quantityIsInt())
         {
             std::cout << ITEMSINPUT << std::endl;
         }
@@ -368,9 +392,9 @@ int ikea::sell()
             std::cout << QUANTITYINPUT << std::endl;
         }
         std::cin >> quantity;
-        if (to_sell->get_quantity() >= quantity)
+        if (to_sell.getQuantity() >= quantity)
         {
-            to_sell->set_quantity(to_sell->get_quantity() - quantity);
+            to_sell.setQuantity(to_sell.getQuantity() - quantity);
         }
         else
         {
@@ -408,5 +432,3 @@ string ikea::getString()
         std::cerr << "" << std::endl;
     }
 }
-
-//todo line separator
