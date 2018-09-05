@@ -9,7 +9,7 @@
 #include "Item.h"
 #include "Furniture.h"
 
-class Kitchenware : Furniture
+class Kitchenware : public Furniture
 {
 public:
     Kitchenware(int id, string &name, double price, double quantity, double x, double y, double z,

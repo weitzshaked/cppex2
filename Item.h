@@ -24,9 +24,14 @@ protected:
     bool _quantityIsInt;
 
 public:
+    /**
+     * @return quantity of item
+     */
     double get_quantity() const;
 
-    void set_quantity(int _quantity);
+    bool is_quantityIsInt() const;
+
+    void set_quantity(double _quantity);
 
     int get_id() const;
 
@@ -38,6 +43,9 @@ public:
     virtual Item(int id, string &name, double price, bool isInt = true):
             _id(id), _name(name), _price(price), _quantityIsInt(isInt){};
 
+    /**
+     * prints item
+     */
     virtual void printItem();
 };
 

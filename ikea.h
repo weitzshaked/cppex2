@@ -13,14 +13,25 @@
 
 class ikea
 {
+    using std::string;
 private:
-    const std::string NOTFOUND = "Item not found";
-    const std::string ITEMSINPUT = "Please enter number of items:";
-    const std::string QUANTITYINPUT = "Please enter desired quantity:";
+    const string NOTFOUND = "Item not found";
+    const string ITEMSINPUT = "Please enter number of items:";
+    const string QUANTITYINPUT = "Please enter desired quantity:";
+    const string BADFORMAT = "Bad file formmating";
     std::vector<Item *> items;
+    std::vector<string> input;
+    ItemType type;
+
+    int checkFormat(string desc, string format);
+    int getFirstLines(std::ifstream inFile);
+    void inputMovieOrBook(std::ifstream inFile);
+    void inputFurniture(std::ifstream inFile)
 
     template<typename T>
     T &getInput();
+
+    enum ItemType{ candy, fabric, kitchen, movieAndBook, tableAndChair};
 
 public:
     /**
@@ -53,7 +64,6 @@ public:
      */
     void find_by_name();
 
-    //todo const?
     /**
      * prints items by id
      * @param id
@@ -74,6 +84,7 @@ public:
 
     void printMenu();
 
+    int addItem(bool isInt);
 };
 
 #endif //CPPEX2_IKEA_H

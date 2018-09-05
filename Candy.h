@@ -7,10 +7,10 @@
 
 #include "Item.h"
 
-class Candy: Item
+class Candy: public Item
 {
 public:
-    Candy(int id, std::string &name, double price,int quantity, double calories):
+    Candy(int id, std::string &name, double price,double quantity, double calories):
             Item(id, name, price, false),_quantity(quantity),_calories(calories){};
     virtual void printItem()
     {

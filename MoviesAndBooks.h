@@ -7,10 +7,10 @@
 
 #include "Item.h"
 
-class MoviesAndBooks : Item
+class MoviesAndBooks : public Item
 {
 public:
-    MoviesAndBooks(int id, string &name, double price, int quantity, string author, string year,
+    MoviesAndBooks(int id, string &name, double price, double quantity, string author, string year,
                    string length) :
             Item(id, name, price), _quantity(quantity), _author(author), _yearOfPublish(year),
             _length(length)

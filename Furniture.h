@@ -8,7 +8,7 @@
 
 #include "Item.h"
 
-class Furniture : Item
+class Furniture : public Item
 {
 public:
     virtual Furniture(int id, string &name, double price, double quantity, double x, double y,

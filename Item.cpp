@@ -14,12 +14,7 @@ const std::string &Item::get_name() const
     return _name;
 }
 
-double Item::get_quantity() const
-{
-    return _quantity;
-}
-
-void Item::set_quantity(int _quantity)
+void Item::set_quantity(double _quantity)
 {
     Item::_quantity = _quantity;
 }
@@ -32,4 +27,14 @@ void Item::printItem()
     std::cout << _quantityIsInt? (int)_quantity: _quantity;
     std::cout << std::endl;
     std::cout << "Price: " << _price << std::endl;
+}
+
+bool Item::is_quantityIsInt() const
+{
+    return _quantityIsInt;
+}
+
+double Item::get_quantity() const
+{
+    return _quantity;
 }

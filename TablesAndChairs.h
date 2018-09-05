@@ -8,7 +8,7 @@
 
 #include "Furniture.h"
 
-class TablesAndChairs : Furniture
+class TablesAndChairs : public Furniture
 {
 public:
     TablesAndChairs(int id, string &name, double price, double quantity, double x, double y,
