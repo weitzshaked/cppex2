@@ -11,9 +11,9 @@
 class Furniture : public Item
 {
 public:
-    virtual Furniture(int id, string &name, double price, double quantity, double x, double y,
+    Furniture(int id, string &name, double price, double quantity, double x, double y,
                       double z) :
-            Item(id, name, price), _quantity(quantity), _dimensions{x, y, z}
+            Item(id, name, price,quantity), _dimensions{x, y, z}
     {};
 
     virtual void printItem()

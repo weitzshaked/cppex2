@@ -11,7 +11,7 @@ class Fabric: public Item
 {
 public:
     Fabric(int id, string &name, double price, double quantity, double weight):
-            Item(id, name, price, false), _quantity(quantity),_weight(weight){};
+            Item(id, name, price, quantity, false),_weight(weight){};
     virtual void printItem(){Item::printItem(); std::cout << "Weight: " << _weight << std::endl;}
 
 protected:

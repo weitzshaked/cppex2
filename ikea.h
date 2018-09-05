@@ -11,10 +11,12 @@
 #include <algorithm>
 #include "Item.h"
 
+using std::string;
+
 class ikea
 {
-    using std::string;
 private:
+    enum ItemType{ candy, fabric, kitchen, movieAndBook, tableAndChair};
     const string NOTFOUND = "Item not found";
     const string ITEMSINPUT = "Please enter number of items:";
     const string QUANTITYINPUT = "Please enter desired quantity:";
@@ -24,14 +26,11 @@ private:
     ItemType type;
 
     int checkFormat(string desc, string format);
-    int getFirstLines(std::ifstream inFile);
-    void inputMovieOrBook(std::ifstream inFile);
-    void inputFurniture(std::ifstream inFile)
-
-    template<typename T>
-    T &getInput();
-
-    enum ItemType{ candy, fabric, kitchen, movieAndBook, tableAndChair};
+    int getFirstLines(std::ifstream& inFile);
+    void inputMovieOrBook(std::ifstream& inFile);
+    void inputFurniture(std::ifstream& inFile);
+    int getInt();
+    string getString();
 
 public:
     /**
@@ -43,7 +42,7 @@ public:
      * destructor
      */
     ~ikea()
-    { delete[] items; };
+    {for(auto &item: items){delete item;}};
 
     /**
      * inputs items to stock from file

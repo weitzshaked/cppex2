@@ -9,13 +9,14 @@
 #include <string>
 #include <iostream>
 
+using std::string;
+
 /**
  * Class representing a product
  */
+
 class Item
 {
-    using std::string;
-
 protected:
     int _id;
     string _name;
@@ -40,8 +41,8 @@ public:
     /**
      * constructor
      */
-    virtual Item(int id, string &name, double price, bool isInt = true):
-            _id(id), _name(name), _price(price), _quantityIsInt(isInt){};
+    Item(int id, string &name, double price, double quantity, bool isInt = true):
+            _id(id), _name(name), _price(price),_quantity(quantity), _quantityIsInt(isInt){};
 
     /**
      * prints item

@@ -12,7 +12,7 @@ class MoviesAndBooks : public Item
 public:
     MoviesAndBooks(int id, string &name, double price, double quantity, string author, string year,
                    string length) :
-            Item(id, name, price), _quantity(quantity), _author(author), _yearOfPublish(year),
+            Item(id, name, price,quantity), _author(author), _yearOfPublish(year),
             _length(length)
     {};
 

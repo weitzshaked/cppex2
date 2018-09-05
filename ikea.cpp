@@ -52,6 +52,15 @@ int main()
     return 0;
 }
 
+//void checkSeparator()
+//{
+//    getline(inFile, line);
+//    if(line != "-----")
+//    {
+//        std::cerr << "Separator Missing" << std::endl;
+//    }
+//}
+
 void ikea::printMenu()
 {
     std::cout << "1. Input stock from file" << std::endl;
@@ -115,7 +124,7 @@ int ikea::addItem(bool isInt)
     }
 }
 
-void ikea::inputMovieOrBook(std::ifstream inFile)
+void ikea::inputMovieOrBook(std::ifstream& inFile)
 {
     string line;
     string desc;
@@ -146,7 +155,7 @@ void ikea::inputMovieOrBook(std::ifstream inFile)
 }
 
 
-void ikea::inputFurniture(std::ifstream inFile)
+void ikea::inputFurniture(std::ifstream& inFile)
 {
     string line;
     string desc;
@@ -233,7 +242,7 @@ int ikea::checkFormat(string desc, string format)
 }
 
 
-int ikea::getFirstLines(std::ifstream inFile)
+int ikea::getFirstLines(std::ifstream &inFile)
 {
     string line;
     string desc;
@@ -282,7 +291,7 @@ void ikea::findById()
 {
     try
     {
-        getInput<unsigned int>();
+//        getInt();
     }
     catch (const std::out_of_range &e)
     {
@@ -305,9 +314,9 @@ void ikea::find_by_name()
 }
 
 
-bool compById(const Item &first, const Item &second) const
+bool compById(const Item *first, const Item *second)
 {
-    return first.get_id() > second.get_id();
+    return first->get_id() > second->get_id();
 }
 
 void ikea::printById()
@@ -322,9 +331,9 @@ void ikea::printById()
     }
 }
 
-bool compByName(const Item &first, const Item &second) const
+bool compByName(const Item *first, const Item *second)
 {
-    return first.get_name() > second.get_name();
+    return first->get_name() > second->get_name();
 }
 
 
@@ -349,7 +358,7 @@ int ikea::sell()
     double quantity;
     try
     {
-        to_sell = *items.at(getInput<unsigned int>());
+        to_sell =
         if (to_sell->is_quantityIsInt())
         {
             std::cout << ITEMSINPUT << std::endl;
@@ -374,17 +383,9 @@ int ikea::sell()
     }
 }
 
-
-/**
- * gets input from keyboard of a certain type
- * @tparam T
- * @return
- */
-template<typename T>
-T &ikea::getInput()
+int ikea::getInt()
 {
-    //todo fail or this way?
-    T input;
+    int input;
     if(std::cin >> input)
     {
         return input;
@@ -395,5 +396,17 @@ T &ikea::getInput()
     }
 }
 
+string ikea::getString()
+{
+    string input;
+    if(std::cin >> input)
+    {
+        return input;
+    }
+    else
+    {
+        std::cerr << "" << std::endl;
+    }
+}
 
 //todo line separator

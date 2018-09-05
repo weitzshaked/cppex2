@@ -11,7 +11,7 @@ class Candy: public Item
 {
 public:
     Candy(int id, std::string &name, double price,double quantity, double calories):
-            Item(id, name, price, false),_quantity(quantity),_calories(calories){};
+            Item(id, name, price, quantity, false),_calories(calories){};
     virtual void printItem()
     {
         Item::printItem();
