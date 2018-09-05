@@ -19,7 +19,7 @@ int main()
         switch (choice)
         {
             case 1:
-                if (!catalog->inputStock())
+                if (catalog->inputStock())
                 {
                     delete catalog;
                     return -1;
@@ -38,7 +38,7 @@ int main()
                 catalog->printByName();
                 break;
             case 6:
-                if (!catalog->sell())
+                if (catalog->sell())
                 {
                     delete catalog;
                     return -1;
@@ -166,25 +166,29 @@ void ikea::inputFurniture(std::ifstream& inFile)
     std::istringstream iss(line);
     iss >> inputString;
 
-    if (!checkFormat(inputString, "Capacity:"))
+    if (inputString == "Capacity:")
     {
         iss >> inputString;
         input.push_back(inputString);
         type = kitchen;
     }
-    else if (checkFormat(inputString, "Material:"))
+    else if (inputString == "Material:")
     {
         iss >> inputString;
         input.push_back(inputString);
         std::getline(inFile, line);
         std::istringstream iss(line);
         iss >> inputString;
-        if (checkFormat(inputString, "Color:"))
+        if (inputString == "Color:")
         {
             iss >> inputString;
             input.push_back(inputString);
         }
         type = tableAndChair;
+    }
+    else
+    {
+        std::cout << BADFORMAT <<std::endl;
     }
 }
 
@@ -201,47 +205,53 @@ int ikea::inputStock()
         return -1;
     }
 
-    getFirstLines(inFile);
-
     string line;
     string inputString;
-    std::getline(inFile, line);
-    std::istringstream iss(line);
-    iss >> inputString;
-    if (inputString == "Weight:")
+    while (true)
     {
+        getFirstLines(inFile);
+        if(!std::getline(inFile, line))
+        {
+            break;
+        }
+        std::istringstream iss(line);
         iss >> inputString;
-        input.push_back(inputString);
-        type = fabric;
-        checkSeparator(inFile);
-        addItem(false);
-    }
-    else if (inputString == "Calories:")
-    {
-        iss >> inputString;
-        input.push_back(inputString);
-        type = candy;
-        checkSeparator(inFile);
-        addItem(false);
-    }
-    else if (inputString == "Author:")
-    {
-        iss >> inputString;
-        input.push_back(inputString);
-        inputMovieOrBook(inFile);
-        checkSeparator(inFile);
-        addItem(true);
-    }
-    else if (inputString == "Dimensions:")
-    {
-        string temp1, temp2;
-        iss >> inputString >> temp1 >> temp2;
-        input.push_back(inputString);
-        input.push_back(temp1);
-        input.push_back(temp2);
-        inputFurniture(inFile);
-        checkSeparator(inFile);
-        addItem(true);
+        if (inputString == "Weight:")
+        {
+            iss >> inputString;
+            input.push_back(inputString);
+            type = fabric;
+            checkSeparator(inFile);
+            addItem(false);
+        }
+        else if (inputString == "Calories:")
+        {
+            iss >> inputString;
+            input.push_back(inputString);
+            type = candy;
+            checkSeparator(inFile);
+            addItem(false);
+        }
+        else if (inputString == "Author:")
+        {
+            iss >> inputString;
+            input.push_back(inputString);
+            inputMovieOrBook(inFile);
+            checkSeparator(inFile);
+            addItem(true);
+        }
+        else if (inputString == "Dimensions:")
+        {
+            string temp1, temp2;
+            iss >> inputString >> temp1 >> temp2;
+            input.push_back(inputString);
+            input.push_back(temp1);
+            input.push_back(temp2);
+            inputFurniture(inFile);
+            checkSeparator(inFile);
+            addItem(true);
+        }
+        input.clear();
     }
     inFile.close();
     return 0;
