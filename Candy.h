@@ -10,9 +10,21 @@
 class Candy: public Item
 {
 public:
+    /**
+     * constructor
+     * @param id
+     * @param name
+     * @param price
+     * @param quantity
+     * @param calories
+     */
     Candy(int id, std::string &name, double price,double quantity, double calories):
             Item(id, name, price, quantity, false),_calories(calories){};
-    virtual void printItem()
+
+    /**
+     * prints the item
+     */
+    void printItem() const override
     {
         Item::printItem();
         std::cout << "Calories: " << _calories << std::endl;

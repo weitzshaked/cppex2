@@ -7,7 +7,10 @@
 #include "MoviesAndBooks.h"
 #include "TablesAndChairs.h"
 
-
+/**
+ * runs the program
+ * @return 0 on success, -1 otherwise
+ */
 int main()
 {
     auto *catalog = new ikea();
@@ -19,7 +22,7 @@ int main()
         switch (choice)
         {
             case 1:
-                if (catalog->inputStock())
+                if (catalog->inputStock() != 0)
                 {
                     delete catalog;
                     return -1;
@@ -38,7 +41,7 @@ int main()
                 catalog->printByName();
                 break;
             case 6:
-                if (catalog->sell())
+                if (catalog->sell() !=0)
                 {
                     delete catalog;
                     return -1;
@@ -52,6 +55,10 @@ int main()
     return 0;
 }
 
+/**
+ * checks if the next line is a correct separator
+ * @param inFile
+ */
 void ikea::checkSeparator(std::ifstream& inFile)
 {
     string line;
@@ -61,6 +68,7 @@ void ikea::checkSeparator(std::ifstream& inFile)
         std::cerr << "Separator Missing" << std::endl;
     }
 }
+
 
 void ikea::printMenu()
 {
@@ -73,7 +81,7 @@ void ikea::printMenu()
     std::cout << "7. Exit" << std::endl;
 }
 
-int ikea::addItem(bool isInt)
+void ikea::addItem(bool isInt)
 {
     int id = 0;
     string name;
@@ -95,36 +103,41 @@ int ikea::addItem(bool isInt)
     }
     catch (const std::invalid_argument &e)
     {
-        std::cerr << "Invalid input" << e.what() << std::endl;
+        std::cerr << "Invalid input" << std::endl;
+        return;
     }
     switch (type)
     {
         //todo special cases
         case candy:
             items.push_back(new Candy(id, name, price, quantity, std::stod(input[4])));
-            return 0;
+            return;
         case fabric:
             items.push_back(new Fabric(id, name, price, quantity, std::stod(input[4])));
-            return 0;
+            return;
         case kitchen:
             items.push_back(new Kitchenware(id, name, price, quantity, std::stod(input[4]),
                                             std::stod(input[5]), std::stod(input[6]),
                                             std::stod(input[7])));
-            return 0;
+            return;
         case movieAndBook:
             items.push_back(
                     new MoviesAndBooks(id, name, price, quantity, input[4], input[5], input[6]));
-            return 0;
+            return;
         case tableAndChair:
             items.push_back(new TablesAndChairs(id, name, price, quantity, std::stod(input[4]),
                                                 std::stod(input[5]), std::stod(input[6]), input[7],
                                                 input[8]));
-            return 0;
+            return;
         default:
             break;
     }
 }
 
+/**
+ * gets next lines for MovieOrBook
+ * @param inFile
+ */
 void ikea::inputMovieOrBook(std::ifstream& inFile)
 {
     string line;
@@ -157,7 +170,10 @@ void ikea::inputMovieOrBook(std::ifstream& inFile)
     type = movieAndBook;
 }
 
-
+/**
+ * gets next lines for Furniture
+ * @param inFile
+ */
 void ikea::inputFurniture(std::ifstream& inFile)
 {
     string line;
@@ -255,8 +271,13 @@ int ikea::inputStock()
     return 0;
 }
 
-
-int ikea::checkFormat(string desc, string format)
+/**
+ * checks if the description is by the correct format
+ * @param desc
+ * @param format
+ * @return 0 on success, -1 otherwise
+ */
+int ikea::checkFormat(string& desc, string& format) const
 {
     if (desc != format)
     {
@@ -266,7 +287,11 @@ int ikea::checkFormat(string desc, string format)
     return 0;
 }
 
-
+/**
+ * gets the first 4 lines from input file
+ * @param inFile
+ * @return 0 on success, -1 otherwise
+ */
 int ikea::getFirstLines(std::ifstream &inFile)
 {
     string line;
@@ -318,12 +343,15 @@ int ikea::getFirstLines(std::ifstream &inFile)
 Item & ikea::findById()
 {
     int id = getInt();
-    for(auto &item: items)
+    if (id >0)
     {
-        if(item->getId() == id)
+        for (auto &item: items)
         {
-            item->printItem();
-            return *item;
+            if (item->getId() == id)
+            {
+                item->printItem();
+                return *item;
+            }
         }
     }
     std::cout << NOTFOUND << std::endl;
@@ -333,12 +361,15 @@ Item & ikea::findById()
 void ikea::find_by_name()
 {
     string name = getString();
-    for(auto &item: items)
+    if(name != "")
     {
-        if(item->get_name() == name)
+        for (auto &item: items)
         {
-            item->printItem();
-            return;
+            if (item->get_name() == name)
+            {
+                item->printItem();
+                return;
+            }
         }
     }
     std::cout << NOTFOUND << std::endl;
@@ -383,10 +414,13 @@ void ikea::printByName()
     }
 }
 
+/**
+ * sells a item
+ * @return
+ */
 int ikea::sell()
 {
-    Item to_sell;
-    to_sell = findById();
+    Item to_sell = findById();
     double quantity;
     try
     {
@@ -423,7 +457,8 @@ int ikea::getInt()
     }
     else
     {
-     std::cerr << "" << std::endl;
+        std::cerr << "" << std::endl;
+        return -1;
     }
 }
 
@@ -437,5 +472,6 @@ string ikea::getString()
     else
     {
         std::cerr << "" << std::endl;
+        return "";
     }
 }

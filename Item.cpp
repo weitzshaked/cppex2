@@ -19,7 +19,7 @@ void Item::setQuantity(double _quantity)
     Item::_quantity = _quantity;
 }
 
-void Item::printItem()
+void Item::printItem() const
 {
     std::cout << "Item: " << _id << std::endl;
     std::cout << "Name: " << _name << std::endl;

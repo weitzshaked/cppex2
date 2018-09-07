@@ -16,6 +16,9 @@ using std::string;
 class ikea
 {
 private:
+    /**
+     * enum for initializing a new item
+     */
     enum ItemType{ candy, fabric, kitchen, movieAndBook, tableAndChair};
     const string NOTFOUND = "Item not found";
     const string ITEMSINPUT = "Please enter number of items:";
@@ -25,12 +28,41 @@ private:
     std::vector<string> input;
     ItemType type;
 
-    int checkFormat(string desc, string format);
+    /**
+     * checks if the description is by the correct format
+     * @param desc
+     * @param format
+     * @return 0 on success, -1 otherwise
+     */
+    int checkFormat(string& desc, string& format) const;
+
+    /**
+     * gets the first 4 lines from input file
+     * @param inFile
+     * @return 0 on success, -1 otherwise
+     */
     int getFirstLines(std::ifstream& inFile);
+
+    /**
+     * gets next lines for MovieOrBook
+     * @param inFile
+     */
     void inputMovieOrBook(std::ifstream& inFile);
+
+    /**
+     * gets next lines for Furniture
+     * @param inFile
+     */
     void inputFurniture(std::ifstream& inFile);
+
     int getInt();
+
     string getString();
+
+    /**
+     * checks if the next line is a correct separator
+     * @param inFile
+     */
     void checkSeparator(std::ifstream& inFile);
 
 public:
@@ -84,7 +116,7 @@ public:
 
     void printMenu();
 
-    int addItem(bool isInt);
+    void addItem(bool isInt);
 };
 
 #endif //CPPEX2_IKEA_H

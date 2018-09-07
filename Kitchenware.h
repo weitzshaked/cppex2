@@ -12,12 +12,26 @@
 class Kitchenware : public Furniture
 {
 public:
+    /**
+     * constructor
+     * @param id
+     * @param name
+     * @param price
+     * @param quantity
+     * @param x
+     * @param y
+     * @param z
+     * @param capacity
+     */
     Kitchenware(int id, string &name, double price, double quantity, double x, double y, double z,
                 double capacity) : Furniture(id, name, price, quantity, x, y, x),
                                    _capacity(capacity)
     {};
 
-    virtual void printItem()
+    /**
+     * prints the item
+     */
+    void printItem() const override
     {
         Furniture::printItem();
         std::cout << "Capacity: " << _capacity << std::endl;

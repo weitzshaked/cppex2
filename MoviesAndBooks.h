@@ -10,13 +10,26 @@
 class MoviesAndBooks : public Item
 {
 public:
-    MoviesAndBooks(int id, string &name, double price, double quantity, string author, string year,
-                   string length) :
+    /**
+     * constructor
+     * @param id
+     * @param name
+     * @param price
+     * @param quantity
+     * @param author
+     * @param year
+     * @param length
+     */
+    MoviesAndBooks(int id, string &name, double price, double quantity, string& author, string& year,
+                   string& length) :
             Item(id, name, price,quantity), _author(author), _yearOfPublish(year),
             _length(length)
     {};
 
-    virtual void printItem()
+    /**
+     * prints the item
+     */
+    void printItem() const override
     {
         Item::printItem();
         std::cout << "Author: " << _author << std::endl;

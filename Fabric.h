@@ -10,11 +10,22 @@
 class Fabric : public Item
 {
 public:
+    /**
+     * constructor
+     * @param id
+     * @param name
+     * @param price
+     * @param quantity
+     * @param weight
+     */
     Fabric(int id, string &name, double price, double quantity, double weight) :
             Item(id, name, price, quantity, false), _weight(weight)
     {};
 
-    virtual void printItem()
+    /**
+     * prints the item
+     */
+    void printItem() const override
     {
         Item::printItem();
         std::cout << "Weight: " << _weight << std::endl;

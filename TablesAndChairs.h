@@ -8,15 +8,34 @@
 
 #include "Furniture.h"
 
+/**
+ * a class representing tables and chairs
+ */
 class TablesAndChairs : public Furniture
 {
 public:
+    /**
+     * constructor
+     * @param id
+     * @param name
+     * @param price
+     * @param quantity
+     * @param x
+     * @param y
+     * @param z
+     * @param material
+     * @param color
+     */
     TablesAndChairs(int id, string &name, double price, double quantity, double x, double y,
                     double z,
-                    string material, string color) : Furniture(id, name, price, quantity, x, y, x),
+                    string &material, string &color) : Furniture(id, name, price, quantity, x, y, x),
                                                      _material(material), _color(color)
     {};
-    virtual void printItem()
+
+    /**
+     * prints the item
+     */
+    void printItem() const override
     {
         Furniture::printItem();
         std::cout << "Material: " << _material << std::endl;

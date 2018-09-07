@@ -11,12 +11,25 @@
 class Furniture : public Item
 {
 public:
+    /**
+     * constructor
+     * @param id
+     * @param name
+     * @param price
+     * @param quantity
+     * @param x
+     * @param y
+     * @param z
+     */
     Furniture(int id, string &name, double price, double quantity, double x, double y,
                       double z) :
             Item(id, name, price,quantity), _dimensions{x, y, z}
     {};
 
-    virtual void printItem()
+    /**
+     * prints the item
+     */
+    virtual void printItem() const
     {
         Item::printItem();
         std::cout << "Dimensions: " << _dimensions[0] << " " << _dimensions[1] << " "

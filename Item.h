@@ -30,6 +30,7 @@ public:
      */
     double getQuantity() const;
 
+
     bool quantityIsInt() const;
 
     void setQuantity(double _quantity);
@@ -37,8 +38,6 @@ public:
     int getId() const;
 
     const string &get_name() const;
-
-    Item() = default;
 
     /**
      * constructor
@@ -49,7 +48,7 @@ public:
     /**
      * prints item
      */
-    virtual void printItem();
+    virtual void printItem() const;
 };
 
 
