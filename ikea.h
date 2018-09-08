@@ -16,14 +16,12 @@ using std::string;
 class ikea
 {
 private:
+
     /**
      * enum for initializing a new item
      */
     enum ItemType{ candy, fabric, kitchen, movieAndBook, tableAndChair};
-    const string NOTFOUND = "Item not found";
-    const string ITEMSINPUT = "Please enter number of items:";
-    const string QUANTITYINPUT = "Please enter desired quantity:";
-    const string BADFORMAT = "Bad file formmating";
+
     std::vector<Item *> items;
     std::vector<string> input;
     ItemType type;
@@ -34,14 +32,14 @@ private:
      * @param format
      * @return 0 on success, -1 otherwise
      */
-    int checkFormat(string& desc, string& format) const;
+    int checkFormat(string& desc,const string& format) const;
 
     /**
      * gets the first 4 lines from input file
      * @param inFile
      * @return 0 on success, -1 otherwise
      */
-    int getFirstLines(std::ifstream& inFile);
+    void getFirstLines(std::ifstream &inFile);
 
     /**
      * gets next lines for MovieOrBook
@@ -66,6 +64,22 @@ private:
     void checkSeparator(std::ifstream& inFile);
 
 public:
+    const string ENTER_NUMBER = "please enter catalog number: ";
+    const string ENTER_NAME = "please enter product name: ";
+    const string ENTER_PATH = "please enter file path: ";
+    const string ENTER_ITTEM = "Please enter number of items:";
+    const string ENTER_QUANTITY = "Please enter desired quantity:";
+    const string NOT_FOUND = "Item not found";
+    const string BAD_FORMAT = "Bad file formmating";
+    const string MISSING_SEPERATOR = "Separator Missing";
+    const string SEPERATOR = "-----";
+    const string INVALID_INPUT = "Invalid input";
+    const string PUBLISH_YEAR = "Year of publication";
+    const string LENGTH = "Length";
+    const string OPEN_ERROR = "Failed to open file";
+    const string SELL_ERROR = "Not enough stock to sell";
+    const string ITEM_ERROR = "Item ID already exists";
+
     /**
      * constructor
      */
@@ -82,19 +96,19 @@ public:
      * @param path
      * @return
      */
-    int inputStock();
+    void inputStock();
 
     /**
-     * finds item by id
+     * finds item by id from user input
      * @return
      */
-    Item & findById();
+    Item* findById(bool printItem);
 
     /**
-     * find item by name
+     * find item by name from user input
      * @return
      */
-    void find_by_name();
+    void findByName();
 
     /**
      * prints items by id
@@ -112,11 +126,20 @@ public:
      * sells a item
      * @return
      */
-    int sell();
+    void sell();
 
     void printMenu();
 
     void addItem(bool isInt);
+
+    const string & findNameById(int id);
+
+    /**
+ * gets an item by id given
+ * @param id
+ * @return
+ */
+    Item& getById(int id);
 };
 
 #endif //CPPEX2_IKEA_H

@@ -30,13 +30,25 @@ public:
      */
     double getQuantity() const;
 
-
+    /**
+     * @return true if is int, false if double
+     */
     bool quantityIsInt() const;
 
-    void setQuantity(double _quantity);
+    /**
+     * set quantity to param
+     * @param quantity
+     */
+    void setQuantity(double quantity);
 
+    /**
+     * @return id of item
+     */
     int getId() const;
 
+    /**
+     * @return name of item
+     */
     const string &get_name() const;
 
     /**
