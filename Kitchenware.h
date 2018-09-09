@@ -24,7 +24,7 @@ public:
      * @param capacity
      */
     Kitchenware(int id, string &name, double price, double quantity, double x, double y, double z,
-                double capacity) : Furniture(id, name, price, quantity, x, y, x),
+                double capacity) : Furniture(id, name, price, quantity, x, y, z),
                                    _capacity(capacity)
     {};
 

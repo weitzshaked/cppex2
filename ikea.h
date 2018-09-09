@@ -39,19 +39,19 @@ private:
      * @param inFile
      * @return 0 on success, -1 otherwise
      */
-    void getFirstLines(std::ifstream &inFile);
+	int getFirstLines(std::ifstream &inFile);
 
     /**
      * gets next lines for MovieOrBook
      * @param inFile
      */
-    void inputMovieOrBook(std::ifstream& inFile);
+	int inputMovieOrBook(std::ifstream &inFile);
 
     /**
      * gets next lines for Furniture
      * @param inFile
      */
-    void inputFurniture(std::ifstream& inFile);
+	int inputFurniture(std::ifstream &inFile);
 
     int getInt();
 
@@ -61,7 +61,7 @@ private:
      * checks if the next line is a correct separator
      * @param inFile
      */
-    void checkSeparator(std::ifstream& inFile);
+	int checkSeparator(std::ifstream &inFile);
 
 public:
     const string ENTER_NUMBER = "please enter catalog number: ";
@@ -130,7 +130,7 @@ public:
 
     void printMenu();
 
-    void addItem(bool isInt);
+    int addItem(bool isInt);
 
     const string & findNameById(int id);
 

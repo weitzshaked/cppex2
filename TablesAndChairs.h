@@ -28,7 +28,7 @@ public:
      */
     TablesAndChairs(int id, string &name, double price, double quantity, double x, double y,
                     double z,
-                    string &material, string &color) : Furniture(id, name, price, quantity, x, y, x),
+                    string &material, string &color) : Furniture(id, name, price, quantity, x, y, z),
                                                      _material(material), _color(color)
     {};
 

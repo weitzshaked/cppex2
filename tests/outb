@@ -1,0 +1,335 @@
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter file path: The 5 line of the 3 product is wrong
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter file path: 
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter catalog number: Product was not found.
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter catalog number: Please enter desired quantity: Not enough stock to sell.
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter catalog number: Please enter desired quantity: Item: 902
+Name: Square candy
+Quantity: 5.20
+Price: 1.50
+Calories: 500.00
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+Item: 7
+Name: James Bond
+Quantity: 1
+Price: 9999.00
+Author: Ian Fleming
+Year of publication: 1962
+Length: 6540
+-----
+Item: 126
+Name: Wooden chair
+Quantity: 500
+Price: 25.00
+Dimensions: 1.50 0.80 0.80
+Material: wood
+Color: Salmon
+-----
+Item: 205
+Name: Ceramic knife
+Quantity: 100
+Price: 5.00
+Dimensions: 0.30 0.05 0.02
+Capacity: 0.00
+-----
+Item: 701
+Name: Pajama cloth
+Quantity: 101.00
+Price: 4.30
+Weight: 5.00
+-----
+Item: 902
+Name: Square candy
+Quantity: 5.20
+Price: 1.50
+Calories: 500.00
+-----
+
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter catalog number: Please enter number of items: 
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+Item: 205
+Name: Ceramic knife
+Quantity: 100
+Price: 5.00
+Dimensions: 0.30 0.05 0.02
+Capacity: 0.00
+-----
+Item: 7
+Name: James Bond
+Quantity: 1
+Price: 9999.00
+Author: Ian Fleming
+Year of publication: 1962
+Length: 6540
+-----
+Item: 701
+Name: Pajama cloth
+Quantity: 101.00
+Price: 4.30
+Weight: 5.00
+-----
+Item: 902
+Name: Square candy
+Quantity: 5.20
+Price: 1.50
+Calories: 500.00
+-----
+Item: 126
+Name: Wooden chair
+Quantity: 500
+Price: 25.00
+Dimensions: 1.50 0.80 0.80
+Material: wood
+Color: Salmon
+-----
+
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter catalog number: Please enter number of items: 
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter catalog number: Please enter number of items: Not enough stock to sell.
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter catalog number: Please enter number of items: 
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter file path: product no. 5 already in stock with different values
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter file path: The 1 line of the 2 product is wrong
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter catalog number: Please enter desired quantity: Not enough stock to sell.
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+Item: 7
+Name: James Bond
+Quantity: 0
+Price: 9999.00
+Author: Ian Fleming
+Year of publication: 1962
+Length: 6540
+-----
+Item: 126
+Name: Wooden chair
+Quantity: 1000
+Price: 25.00
+Dimensions: 1.50 0.80 0.80
+Material: wood
+Color: Salmon
+-----
+Item: 205
+Name: Ceramic knife
+Quantity: 200
+Price: 5.00
+Dimensions: 0.30 0.05 0.02
+Capacity: 0.00
+-----
+Item: 701
+Name: Pajama cloth
+Quantity: 151.50
+Price: 4.30
+Weight: 5.00
+-----
+Item: 705
+Name: Cool Jacket
+Quantity: 23.43
+Price: 4.30
+Weight: 493.20
+-----
+Item: 902
+Name: Square candy
+Quantity: 8.40
+Price: 1.50
+Calories: 500.00
+-----
+
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter catalog number: Please enter desired quantity: Item: 705
+Name: Cool Jacket
+Quantity: 7.23
+Price: 4.30
+Weight: 493.20
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+please enter file path: The 1 line of the 2 product is wrong
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+Item: 205
+Name: Ceramic knife
+Quantity: 200
+Price: 5.00
+Dimensions: 0.30 0.05 0.02
+Capacity: 0.00
+-----
+Item: 705
+Name: Cool Jacket
+Quantity: 30.67
+Price: 4.30
+Weight: 493.20
+-----
+Item: 7
+Name: James Bond
+Quantity: 0
+Price: 9999.00
+Author: Ian Fleming
+Year of publication: 1962
+Length: 6540
+-----
+Item: 701
+Name: Pajama cloth
+Quantity: 151.50
+Price: 4.30
+Weight: 5.00
+-----
+Item: 902
+Name: Square candy
+Quantity: 8.40
+Price: 1.50
+Calories: 500.00
+-----
+Item: 126
+Name: Wooden chair
+Quantity: 1000
+Price: 25.00
+Dimensions: 1.50 0.80 0.80
+Material: wood
+Color: Salmon
+-----
+
+
+1. Input stock from file
+2. Find item by catalog number
+3. Find item by name
+4. Print stock by catalog number
+5. Print stock by name
+6. Sell item
+7. Exit
+

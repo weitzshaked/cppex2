@@ -19,6 +19,12 @@ int main()
 	{
 		catalog->printMenu();
 		std::cin >> choice;
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
 		switch (choice)
 		{
 			case 1:
@@ -51,14 +57,16 @@ int main()
  * checks if the next line is a correct separator
  * @param inFile
  */
-void ikea::checkSeparator(std::ifstream &inFile)
+int ikea::checkSeparator(std::ifstream &inFile)
 {
 	string line;
 	getline(inFile, line);
 	if (line != SEPERATOR)
 	{
 		std::cerr << MISSING_SEPERATOR << std::endl;
+		return -1;
 	}
+	return 0;
 }
 
 
@@ -78,7 +86,7 @@ void ikea::printMenu()
  * @param id
  * @return
  */
-Item& ikea::getById(int id)
+Item &ikea::getById(int id)
 {
 	for (auto &item: items)
 	{
@@ -90,7 +98,7 @@ Item& ikea::getById(int id)
 }
 
 
-void ikea::addItem(bool isInt)
+int ikea::addItem(bool isInt)
 {
 	int id = 0;
 	string name;
@@ -103,8 +111,7 @@ void ikea::addItem(bool isInt)
 		if (isInt)
 		{
 			quantity = std::stoi(input[2]);
-		}
-		else
+		} else
 		{
 			quantity = std::stod(input[2]);
 		}
@@ -112,13 +119,13 @@ void ikea::addItem(bool isInt)
 		if (price < 0 || quantity < 0)
 		{
 			std::cerr << INVALID_INPUT << std::endl;
-			return;
+			return -1;
 		}
 	}
 	catch (const std::invalid_argument &e)
 	{
 		std::cerr << INVALID_INPUT << std::endl;
-		return;
+		return -1;
 	}
 
 	string to_check = findNameById(id);
@@ -127,12 +134,11 @@ void ikea::addItem(bool isInt)
 	{
 		Item &to_change = getById(id);
 		to_change.setQuantity(to_change.getQuantity() + quantity);
-		return;
-	}
-	else if (to_check != NOT_FOUND)
+		return -1;
+	} else if (to_check != NOT_FOUND)
 	{
 		std::cerr << ITEM_ERROR << std::endl;
-		return;
+		return -1;
 	}
 
 	try
@@ -145,10 +151,10 @@ void ikea::addItem(bool isInt)
 				if (calories < 0)
 				{
 					std::cerr << INVALID_INPUT << std::endl;
-					return;
+					return -1;
 				}
 				items.push_back(new Candy(id, name, price, quantity, calories));
-				return;
+				return 0;
 			}
 			case fabric:
 			{
@@ -156,49 +162,48 @@ void ikea::addItem(bool isInt)
 				if (weight < 0)
 				{
 					std::cerr << INVALID_INPUT << std::endl;
-					return;
+					return -1;
 				}
 				items.push_back(new Fabric(id, name, price, quantity, weight));
-				return;
+				return 0;
 			}
 			case kitchen:
 			{
 				double x = std::stod(input[4]), y = std::stod(input[5]), z = std::stod(
-						input[6]), capacity = std::stod(
-						input[7]);
+						input[6]), capacity = std::stod(input[7]);
 				if (x < 0 || y < 0 || z < 0 || capacity < 0)
 				{
 					std::cerr << INVALID_INPUT << std::endl;
-					return;
+					return -1;
 				}
 				items.push_back(new Kitchenware(id, name, price, quantity, x, y, z, capacity));
-				return;
+				return 0;
 			}
 			case movieAndBook:
 				items.push_back(
 						new MoviesAndBooks(id, name, price, quantity, input[4], input[5],
 										   input[6]));
-				return;
+				return 0;
 			case tableAndChair:
 			{
 				double x = std::stod(input[4]), y = std::stod(input[5]), z = std::stod(input[6]);
 				if (x < 0 || y < 0 || z < 0)
 				{
 					std::cerr << INVALID_INPUT << std::endl;
-					return;
+					return -1;
 				}
 				items.push_back(new TablesAndChairs(id, name, price, quantity, x, y, z, input[7],
 													input[8]));
-				return;
+				return 0;
 			}
 			default:
-				break;
+				return -1;
 		}
 	}
 	catch (const std::invalid_argument &e)
 	{
 		std::cerr << INVALID_INPUT << std::endl;
-		return;
+		return -1;
 	}
 }
 
@@ -206,7 +211,7 @@ void ikea::addItem(bool isInt)
  * gets next lines for MovieOrBook
  * @param inFile
  */
-void ikea::inputMovieOrBook(std::ifstream &inFile)
+int ikea::inputMovieOrBook(std::ifstream &inFile)
 {
 	string line;
 	string inputString;
@@ -218,7 +223,7 @@ void ikea::inputMovieOrBook(std::ifstream &inFile)
 		if (delimiter == string::npos)
 		{
 			std::cerr << BAD_FORMAT << std::endl;
-			return;
+			return -1;
 		}
 		try
 		{
@@ -244,16 +249,18 @@ void ikea::inputMovieOrBook(std::ifstream &inFile)
 		catch (const std::out_of_range &e)
 		{
 			std::cerr << BAD_FORMAT << std::endl;
+			return -1;
 		}
 	}
 	type = movieAndBook;
+	return 0;
 }
 
 /**
  * gets next lines for Furniture
  * @param inFile
  */
-void ikea::inputFurniture(std::ifstream &inFile)
+int ikea::inputFurniture(std::ifstream &inFile)
 {
 	string line;
 	string inputString;
@@ -279,16 +286,18 @@ void ikea::inputFurniture(std::ifstream &inFile)
 	} else
 	{
 		std::cout << BAD_FORMAT << std::endl;
+		return -1;
 	}
+	return 0;
 }
 
 void ikea::inputStock()
 {
 	string path;
-	std::cout << ENTER_PATH << std::endl;
+	std::cout << ENTER_PATH;
 	std::cin >> path;
-
 	std::ifstream inFile(path);
+	input.clear();
 
 	if (!inFile.is_open())
 	{
@@ -300,31 +309,45 @@ void ikea::inputStock()
 	string inputString;
 	while (true)
 	{
-		getFirstLines(inFile);
+		if (getFirstLines(inFile) == -1)
+		{
+			return;
+		}
 		if (!std::getline(inFile, line))
 		{
 			break;
 		}
 		unsigned long delimiter = line.find(": ");
+		if (delimiter == string::npos)
+		{
+			std::cerr << BAD_FORMAT << std::endl;
+			break;
+		}
 		inputString = line.substr(0, delimiter);
 		if (inputString == "Weight")
 		{
 			input.push_back(line.substr(delimiter + 2, line.length()));
 			type = fabric;
-			checkSeparator(inFile);
-			addItem(false);
+			if (checkSeparator(inFile) == -1 || addItem(false) == -1)
+			{
+				break;
+			}
 		} else if (inputString == "Calories")
 		{
 			input.push_back(line.substr(delimiter + 2, line.length()));
 			type = candy;
-			checkSeparator(inFile);
-			addItem(false);
+			if (checkSeparator(inFile) == -1 || addItem(false) == -1)
+			{
+				break;
+			}
 		} else if (inputString == "Author")
 		{
 			input.push_back(line.substr(delimiter + 2, line.length()));
-			inputMovieOrBook(inFile);
-			checkSeparator(inFile);
-			addItem(true);
+			if (inputMovieOrBook(inFile) == -1 || checkSeparator(inFile) == -1 ||
+				addItem(true) == -1)
+			{
+				break;
+			}
 		} else if (inputString == "Dimensions")
 		{
 			string cutLine;
@@ -336,9 +359,10 @@ void ikea::inputStock()
 				input.push_back(inputString);
 				cutLine = cutLine.substr(delimiter + 1, line.length());
 			}
-			inputFurniture(inFile);
-			checkSeparator(inFile);
-			addItem(true);
+			if (inputFurniture(inFile) == -1 || checkSeparator(inFile) == -1 || addItem(true) == -1)
+			{
+				break;
+			}
 		}
 		input.clear();
 	}
@@ -365,7 +389,7 @@ int ikea::checkFormat(string &desc, const string &format) const
  * gets the first 4 lines from input file
  * @param inFile
  */
-void ikea::getFirstLines(std::ifstream &inFile)
+int ikea::getFirstLines(std::ifstream &inFile)
 {
 	string line;
 	string inputString;
@@ -373,13 +397,13 @@ void ikea::getFirstLines(std::ifstream &inFile)
 	{
 		if (!std::getline(inFile, line) && i == 0)
 		{
-			return;
+			return 0;
 		}
 		unsigned long delimiter = line.find(": ");
-		if(delimiter == string::npos)
+		if (delimiter == string::npos)
 		{
 			std::cerr << BAD_FORMAT << std::endl;
-			return;
+			return -1;
 		}
 		inputString = line.substr(0, delimiter);
 		try
@@ -390,33 +414,34 @@ void ikea::getFirstLines(std::ifstream &inFile)
 					if (!checkFormat(inputString, "Item"))
 					{
 						input.push_back(line.substr(delimiter + 2, line.length()));
-					}
-					break;
+						break;
+					} else { return -1; }
 				case 1:
 					if (!checkFormat(inputString, "Name"))
 					{
 						input.push_back(line.substr(delimiter + 2, line.length()));
-					}
-					break;
+						break;
+					} else { return -1; }
 				case 2:
 					if (!checkFormat(inputString, "Quantity"))
 					{
 						input.push_back(line.substr(delimiter + 2, line.length()));
-					}
-					break;
+						break;
+					} else { return -1; }
 				case 3:
 					if (!checkFormat(inputString, "Price"))
 					{
 						input.push_back(line.substr(delimiter + 2, line.length()));
-					}
-					break;
+						break;
+					} else { return -1; }
 				default:
-					break;
+					return -1;
 			}
 		}
 		catch (const std::out_of_range &e)
 		{
 			std::cout << BAD_FORMAT << std::endl;
+			return -1;
 		}
 	}
 }
@@ -424,9 +449,9 @@ void ikea::getFirstLines(std::ifstream &inFile)
 /**
  * find a item by it's id from user input
  */
-Item* ikea::findById(bool printItem)
+Item *ikea::findById(bool printItem)
 {
-	std::cout << ENTER_NUMBER << std::endl;
+	std::cout << ENTER_NUMBER;
 	int id = getInt();
 	if (id > 0)
 	{
@@ -441,8 +466,8 @@ Item* ikea::findById(bool printItem)
 				return item;
 			}
 		}
+		std::cout << NOT_FOUND << std::endl;
 	}
-	std::cout << NOT_FOUND << std::endl;
 	return nullptr;
 }
 
@@ -469,7 +494,7 @@ const string &ikea::findNameById(int id)
 
 void ikea::findByName()
 {
-	std::cout << ENTER_NAME << std::endl;
+	std::cout << ENTER_NAME;
 	string name = getString();
 	if (!name.empty())
 	{
@@ -531,52 +556,53 @@ void ikea::printByName()
 void ikea::sell()
 {
 	Item *to_sell = findById(false);
-	if(to_sell==nullptr)
+	if (to_sell == nullptr)
 	{
 		return;
 	}
 	double quantity;
-	try
+	if (to_sell->quantityIsInt())
 	{
-		if (to_sell->quantityIsInt())
-		{
-			std::cout << ENTER_ITTEM << std::endl;
-		} else
-		{
-			std::cout << ENTER_QUANTITY << std::endl;
-		}
-		std::cin >> quantity;
+		std::cout << ENTER_ITTEM;
+	} else
+	{
+		std::cout << ENTER_QUANTITY;
+	}
+	if (std::cin >> quantity)
+	{
 		if (quantity > 0 && to_sell->getQuantity() >= quantity)
 		{
 			to_sell->setQuantity(to_sell->getQuantity() - quantity);
+			to_sell->printItem();
 		} else
 		{
 			std::cout << SELL_ERROR << std::endl;
 		}
-	}
-	catch (const std::out_of_range &e)
+	} else
 	{
-		std::cout << NOT_FOUND << std::endl;
+		std::cerr << INVALID_INPUT << std::endl;
 	}
 }
 
 int ikea::getInt()
 {
 	int input;
-	if (std::cin >> input && input >= 0)
-	{
-		return input;
-	} else
+	std::cin >> input;
+	if (std::cin.fail() || input <0)
 	{
 		std::cerr << INVALID_INPUT << std::endl;
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		return -1;
 	}
+	return input;
 }
 
 string ikea::getString()
 {
 	string input;
-	if (std::cin >> input)
+	getline(std::cin, input);
+	if (getline(std::cin, input))
 	{
 		return input;
 	} else

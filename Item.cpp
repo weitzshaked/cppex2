@@ -42,11 +42,11 @@ void Item::printItem() const
 	std::cout << "Quantity: ";
 	if (_quantityIsInt)
 	{
-		std::cout << std::fixed << std::setprecision(2) << _quantity << std::endl;
+		std::cout <<(int) _quantity << std::endl;
 	}
 	else
 	{
-		std::cout <<(int) _quantity << std::endl;
+		std::cout << std::fixed << std::setprecision(2) << _quantity << std::endl;
 	}
 	std::cout << "Price: " << _price << std::endl;
 }
