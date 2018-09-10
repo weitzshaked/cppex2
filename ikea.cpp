@@ -1,11 +1,6 @@
-#include <sstream>
-#include <cstring>
+
 #include "ikea.h"
-#include "Fabric.h"
-#include "Candy.h"
-#include "Kitchenware.h"
-#include "MoviesAndBooks.h"
-#include "TablesAndChairs.h"
+
 
 /**
  * runs the program
@@ -69,7 +64,9 @@ int ikea::checkSeparator(std::ifstream &inFile)
 	return 0;
 }
 
-
+/**
+ * prints program menu
+ */
 void ikea::printMenu()
 {
 	std::cout << "1. Input stock from file" << std::endl;
@@ -97,7 +94,11 @@ Item &ikea::getById(int id)
 	}
 }
 
-
+/**
+ * adds an item to stock
+ * @param isInt
+ * @return 0 on success, -1 else
+ */
 int ikea::addItem(bool isInt)
 {
 	int id = 0;
@@ -472,8 +473,8 @@ Item *ikea::findById(bool printItem)
 }
 
 /**
- * find an item's name by it's id
- * @return
+ * @param id
+ * @return item name by it's id
  */
 const string &ikea::findNameById(int id)
 {
@@ -584,6 +585,11 @@ void ikea::sell()
 	}
 }
 
+
+/**
+ * gets int input from cin
+ * @return
+ */
 int ikea::getInt()
 {
 	int input;
@@ -598,6 +604,10 @@ int ikea::getInt()
 	return input;
 }
 
+/**
+ * gets string input from cin
+ * @return
+ */
 string ikea::getString()
 {
 	string input;

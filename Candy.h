@@ -1,7 +1,3 @@
-//
-// Created by shaked.weitz on 9/5/18.
-//
-
 #ifndef CPPEX2_CANDY_H
 #define CPPEX2_CANDY_H
 
